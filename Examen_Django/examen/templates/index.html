@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Sistema de Gestión de Aeropuertos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 28px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 30px;
+        }
+
+        .link-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .link-item {
+            background-color: #3498db;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .link-item a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .link-item:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">Examen</a></h1>
+    </header>
+
+    <div class="container">
+        <h2>Páginas del Examen</h2>
+        <div class="link-list">
+            <div class="link-item">
+                <a href="{% url 'ultimo_voto' 1 %}">Ultimo voto</a>
+            </div>
+            <div class="link-item">
+                <a href="{% url 'voto_clietne' 1 %}">Voto del cliente menor 3</a>
+            </div>
+            <div class="link-item">
+                <a href="{% url 'Clientes_sin_voto' %}">Cliente sin votos</a>
+            </div>
+            <div class="link-item">
+                <a href="{% url 'Votos_2023' %}">cliente sin banco mayor a 2023</a>
+            </div>
+            <div class="link-item">
+                <a href="{% url 'Media_voto' %}">Media voto</a>
+            </div>
+            
+        </div>
+    </div>
+    <footer>
+        &copy; 5-11-2024 - Examen-Django
+    </footer>
+
+</body>
+</html>
