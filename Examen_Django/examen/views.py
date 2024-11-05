@@ -13,7 +13,7 @@ def index(request):
 
 def ultimo_voto(request, id_juguete):
     comentario = Votacion.objects.select_related('cliente' , 'juguete')
-    comentario = comentario.filter(juguete__id = id_juguete).order_by('-fecha_voto').first() # solo coje un dato
+    comentario = comentario.filter(juguete__id = id_juguete).order_by('-fecha_voto').first() # first solo coje un dato
 
     return render(request, 'ultimo-voto.html', {'comentario': comentario})
 
@@ -29,18 +29,18 @@ def voto_clietne(request, id_cliente):
 
 #Todos los usuarios o clientes que no han votado nunca y mostrar información sobre estos usuarios y clientes al completo: 1.5 puntos
 
-#pasajero sin votos
+#cliente sin votos
 def Clientes_sin_voto(request):
     cliente = Cliente.objects.prefetch_related(Prefetch('cliente_voto'))
-    cliente = cliente.filter(cliente_voto__isnull = True)
-    return render(request, 'pasajero-sin-votos.html', {'cliente': cliente})
+    cliente = cliente.filter(cliente_voto__isnull = True) #isnull = true para que me de los que son null
+    return render(request, 'Cliente-sin-votos.html', {'cliente': cliente})
 
 #Obtener las cuentas bancarias que sean de la Caixa o de Unicaja y que el propietario tenga un nombre que contenga un texto en concreto,
 #  por ejemplo “Juan”: 1.5 puntos
 
 def Cuentas_bancarias(request):
     cuenta = Banco.objects.select_related('cliente')
-    cuenta = cuenta.filter(Q(banco = 'C') | Q(banco = 'U') , cliente__nombre__icontains = 'Juan')
+    cuenta = cuenta.filter(Q(banco = 'C') | Q(banco = 'U') , cliente__nombre__icontains = 'Juan') # | para decir coge uno o otro  
     return render(request, 'cuentas-bancaria.html', {'cuenta': cuenta})
 
 
@@ -48,15 +48,15 @@ def Cuentas_bancarias(request):
 # con una puntuación numérica igual a 5  y que tengan asociada una cuenta bancaria. 1.5 puntos
 
 def Votos_2023(request):
-    votos = Votacion.objects.select_related('cliente').prefetch_related(Prefetch('banco_cliente'))
-    votos = votos.filter( fecha_voto__year__gt = 2023 , cliente__banco_cliente__isnull =True,
-                         puntuacion__gt = 5)
+    votos = Cliente.objects.prefetch_related(Prefetch('cliente_voto' , 'banco_cliente'))
+    votos = votos.filter(cliente_voto__fecha_voto__year__gt = 2023 , banco_cliente__isnull =True, # year solo coge el año , gt coge mayor al 2023
+                         cliente_voto__puntuacion = 5)
     return render(request, 'Votos_2023.html', {'votos': votos})
 
 
 #Obtener todos los modelos principales que tengan una media de votaciones mayor del 2,5: 1.5 punto
 def Media_voto(request):
-    juguete = Juguete.objects.annotate(media_puntuacion=Avg('voto_jugete__puntuacion')).filter(media_puntuacion__gt=2.5) #añade un campo adicional a cada objeto del queryset que representa el resultado del cálculo
+    juguete = Juguete.objects.annotate(media_puntuacion=Avg('voto_jugete__puntuacion')).filter(media_puntuacion__gt=2.5) #añade un campo adicional a cada objeto del queryset que representa el resultado del cálculo avg para media
     return render(request, 'media.html', {'juguete': juguete})
 
 
