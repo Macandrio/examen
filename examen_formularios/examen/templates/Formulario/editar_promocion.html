@@ -1,0 +1,76 @@
+{% extends "Principal.html" %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h1 class="text-center">Modificar promocion</h1>
+
+    <!-- Mostrar mensajes de error o éxito -->
+    {% if messages %}
+        <div class="mt-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Formulario -->
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ formulario.nombre.label_tag }}
+            {{ formulario.nombre }}
+            {% if formulario.nombre.errors %}
+                <div class="text-danger">{{ formulario.nombre.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ formulario.descripcion.label_tag }}
+            {{ formulario.descripcion }}
+            {% if formulario.descripcion.errors %}
+                <div class="text-danger">{{ formulario.descripcion.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ formulario.descuento.label_tag }}
+            {{ formulario.descuento }}
+            {% if formulario.descuento.errors %}
+                <div class="text-danger">{{ formulario.descuento.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ formulario.fecha_inicio.label_tag }}
+            {{ formulario.fecha_inicio }}
+            {% if formulario.fecha_inicio.errors %}
+                <div class="text-danger">{{ formulario.fecha_inicio.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ formulario.fecha_fin.label_tag }}
+            {{ formulario.fecha_fin }}
+            {% if formulario.fecha_fin.errors %}
+                <div class="text-danger">{{ formulario.fecha_fin.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ formulario.producto.label_tag }}
+            {{ formulario.producto }}
+            {% if formulario.producto.errors %}
+                <div class="text-danger">{{ formulario.producto.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ formulario.usuario.label_tag }}
+            {{ formulario.usuario }}
+            {% if formulario.usuario.errors %}
+                <div class="text-danger">{{ formulario.usuario.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            <a href="{% url 'promocion_buscar_avanzado' %}" class="btn btn-secondary ms-3">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

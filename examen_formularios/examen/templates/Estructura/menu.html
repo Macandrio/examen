@@ -1,0 +1,13 @@
+<div class="dropdown me-3"> <!-- Margen derecho -->
+    <button class="btn dropdown-toggle text-white" id="menuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i> Menú
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="dropdown-item" href="{% url 'Crear_Promocio' %}"><i class="fa-solid fa-building"></i> Crear promocion</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'promocion_buscar_avanzado' %}"><i class="fa-solid fa-building"></i> Buscar promocion</a>
+        </li>
+    </ul>
+</div>
